@@ -30,31 +30,71 @@ namespace KerKonRTInterface.Utilities
 			{
 				if ((string)obj.getSetting("FacilityType") == "TrackingStation")
 				{
+					// Debug.Log("Track 0");
+					sGuID = obj.getSetting("RadialPosition").ToString();
+					sGuID = sGuID.Trim(new Char[] { ' ', ',', '.', '(', ')' });
+					sGuID = sGuID.Replace(" ", "").Replace(",", "").Replace(".", "").Replace(")", "").Replace("(", "").Replace("-", "1");
+
+					// Debug.Log("Track 1");
+
+					CelestialBody CelBody = (CelestialBody)obj.getSetting("CelestialBody");
+					var objectpos = CelBody.transform.InverseTransformPoint(obj.gameObject.transform.position);
+					var dObjectLat = NavUtils.GetLatitude(objectpos);
+					var dObjectLon = NavUtils.GetLongitude(objectpos);
+					double disObjectLat = dObjectLat * 180 / Math.PI;
+					double disObjectLon = dObjectLon * 180 / Math.PI;
+
+					// Debug.Log("Track 2");
+
+					sDLat = disObjectLat.ToString("#0.00");
+					sDLon = disObjectLon.ToString("#0.00");
+					sTSName = "Stn Lt " + sDLat + " Ln " + sDLon;
+					sHeight = obj.getSetting("RadiusOffset").ToString();
+
+					//Debug.Log(">AddGroundStation");
+					float fHeight = (float)obj.getSetting("RadiusOffset");
+					double dHeight = (double)fHeight;
+					int iBody = 1;
+					Guid NewGuid;
+					Guid gGuid = (Guid)obj.getSetting("RTGuid");
+
 					if ((string)obj.getSetting("OpenCloseState") == "Open")
 					{
-						sGuID = obj.getSetting("RadialPosition").ToString();
-						sGuID = sGuID.Trim(new Char[] { ' ', ',', '.', '(', ')' });
-						sGuID = sGuID.Replace(" ", "").Replace(",", "").Replace(".", "").Replace(")", "").Replace("(", "").Replace("-", "1");
-
-						CelestialBody CelBody = (CelestialBody)obj.getSetting("CelestialBody");
-						var objectpos = CelBody.transform.InverseTransformPoint(obj.gameObject.transform.position);
-						var dObjectLat = NavUtils.GetLatitude(objectpos);
-						var dObjectLon = NavUtils.GetLongitude(objectpos);
-						var disObjectLat = dObjectLat * 180 / Math.PI;
-						var disObjectLon = dObjectLon * 180 / Math.PI;
-
-						sDLat = disObjectLat.ToString();
-						sDLon = disObjectLon.ToString();
-						sTSName = "Stn at Lt " + sDLat + " Ln " + sDLon;
-						sHeight = obj.getSetting("RadiusOffset").ToString();
-
-						Guid NewGuid = RemoteTech.API.API.AddGroundStation(sTSName, disObjectLat, disObjectLon, (double)obj.getSetting("RadiusOffset"), 1);
-						obj.setSetting("RTGuid", NewGuid);
+						if (gGuid == Guid.Empty)
+						{
+							NewGuid = RemoteTech.API.API.AddGroundStation(sTSName, disObjectLat, disObjectLon, dHeight, iBody);
+							obj.setSetting("RTGuid", NewGuid);
+						}
 					}
 					else
 					{
-						var gGuid = (Guid)obj.getSetting("RTGuid");
-						RemoteTech.API.API.RemoveGroundStation(gGuid);
+						if (gGuid != Guid.Empty)
+						{
+						}
+						else
+						{
+							Debug.Log("KK: Tracking station has no RT Guid. Adding to generate Guid.");
+							NewGuid = RemoteTech.API.API.AddGroundStation(sTSName, disObjectLat, disObjectLon, dHeight, iBody);
+							obj.setSetting("RTGuid", NewGuid);
+						}
+					}
+				}
+			}
+
+			// Repeat to remove closed stations
+			foreach (StaticObject obj in KerbalKonstructs.KerbalKonstructs.instance.getStaticDB().getAllStatics())
+			{
+				if ((string)obj.getSetting("FacilityType") == "TrackingStation")
+				{
+					if ((string)obj.getSetting("OpenCloseState") == "Open")
+					{
+					}
+					else
+					{
+						Guid gGuid2 = (Guid)obj.getSetting("RTGuid");
+
+						RemoteTech.API.API.RemoveGroundStation(gGuid2);
+						obj.setSetting("RTGuid", Guid.Empty);
 					}
 				}
 			}
@@ -68,7 +108,7 @@ namespace KerKonRTInterface.Utilities
 			if (!bRTLoaded) return;
 
 			string rtPath = string.Format("{0}GameData/RemoteTech/", KSPUtil.ApplicationRootPath);
-			string rtConfigPath = string.Format("{0}GameData/RemoteTech/RemoteTech_Settings.cfg", KSPUtil.ApplicationRootPath);
+			string rtConfigPath = string.Format("{0}GameData/RemoteTech/Default_Settings.cfg", KSPUtil.ApplicationRootPath);
 			if (!Directory.Exists(rtPath)) return;
 			if (!File.Exists(rtConfigPath)) return;
 
@@ -83,7 +123,7 @@ namespace KerKonRTInterface.Utilities
 			if (!bRTLoaded) return;
 
 			string rtPath = string.Format("{0}GameData/RemoteTech/", KSPUtil.ApplicationRootPath);
-			string rtConfigPath = string.Format("{0}GameData/RemoteTech/RemoteTech_Settings.cfg", KSPUtil.ApplicationRootPath);
+			string rtConfigPath = string.Format("{0}GameData/RemoteTech/Default_Settings.cfg", KSPUtil.ApplicationRootPath);
 			if (!Directory.Exists(rtPath)) return;
 			if (!File.Exists(rtConfigPath)) return;
 
@@ -100,7 +140,7 @@ namespace KerKonRTInterface.Utilities
 			bool bRTLoaded = AssemblyLoader.loadedAssemblies.Any(a => a.name == "RemoteTech");
 			if (!bRTLoaded) return;
 
-			string saveConfigPath = string.Format("{0}GameData/RemoteTech/RemoteTech_Settings.cfg", KSPUtil.ApplicationRootPath);
+			string saveConfigPath = string.Format("{0}GameData/RemoteTech/Default_Settings.cfg", KSPUtil.ApplicationRootPath);
 			string backupConfigPath = KerKonRTInterface.installDir + "/KKRTBack.cfg";
 
 			if (File.Exists(saveConfigPath))
@@ -113,7 +153,7 @@ namespace KerKonRTInterface.Utilities
 			if (!bRTLoaded) return;
 
 			string saveConfigPath = KerKonRTInterface.installDir + "/KKRTBack.cfg";
-			string restoreConfigPath = string.Format("{0}GameData/RemoteTech/RemoteTech_Settings.cfg", KSPUtil.ApplicationRootPath);
+			string restoreConfigPath = string.Format("{0}GameData/RemoteTech/Default_Settings.cfg", KSPUtil.ApplicationRootPath);
 
 			if (File.Exists(saveConfigPath) && File.Exists(restoreConfigPath))
 				File.Copy(saveConfigPath, restoreConfigPath, true);
