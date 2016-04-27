@@ -40,4 +40,3 @@ E:\Kerbal-KonstructsDEV\KerKonRTInterface\KKRTInterface\src\bin\Debug\Assembly-C
 E:\Kerbal-KonstructsDEV\KerKonRTInterface\KKRTInterface\src\bin\Debug\UnityEngine.xml
 E:\Kerbal-KonstructsDEV\KerKonRTInterface\KKRTInterface\src\obj\Debug\KerKonRTInterface.dll
 E:\Kerbal-KonstructsDEV\KerKonRTInterface\KKRTInterface\src\obj\Debug\KerKonRTInterface.pdb
-E:\Kerbal-KonstructsDEV\KerKonRTInterface\KKRTInterface\src\obj\Debug\KerKonRTInterface.csprojResolveAssemblyReference.cache

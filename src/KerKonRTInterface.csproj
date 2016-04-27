@@ -76,7 +76,7 @@
     <Compile Include="KerKonRTInterface.cs" />
     <Compile Include="KSPAddonFixed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\PersistenceUtils.cs" />
+    <Compile Include="Utilities\KKRTPersistenceUtils.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,6 +9,7 @@ using System.Reflection;
 using KSP.UI.Screens;
 using KerbalKonstructs;
 using KerbalKonstructs.StaticObjects;
+using KerbalKonstructs.Utilities;
 using RemoteTech;
 using RemoteTech.API;
 
@@ -35,8 +36,11 @@ namespace KerKonRTInterface
 			DontDestroyOnLoad(this);
 
 			// Subscribe to KK events
-			KerbalKonstructs.UI.SharedInterfaces.evFacilityOpened += PersistenceUtils.UpdateRTGroundStations;
-			KerbalKonstructs.UI.SharedInterfaces.evFacilityClosed += PersistenceUtils.UpdateRTGroundStations;
+			KerbalKonstructs.UI.SharedInterfaces.evFacilityOpened += KKRTPersistenceUtils.OpenRTGroundStation;
+			KerbalKonstructs.UI.SharedInterfaces.evFacilityClosed += KKRTPersistenceUtils.CloseRTGroundStation;
+
+			// KKRTPersistenceUtils.backupRemoteTechConfig();
+			// KKRTPersistenceUtils.InitialiseRTGroundStations();
 		}
 
 		#region Game Events
@@ -44,10 +48,18 @@ namespace KerKonRTInterface
 		public void LoadState(ConfigNode configNode)
 		{
 			if (HighLogic.LoadedScene == GameScenes.MAINMENU)
-			{}
+			{
+				// KKRTPersistenceUtils.restoreRemoteTechConfig();
+				// KKRTPersistenceUtils.InitialiseRTGroundStations();
+			}
 			else
 			{
-				PersistenceUtils.loadRTCareerBackup();
+				if (HighLogic.CurrentGame.Mode == Game.Modes.CAREER)
+				{
+					// KKRTPersistenceUtils.loadRTCareerBackup();
+					// KerbalKonstructs.Utilities.PersistenceUtils.loadPersistenceBackup();
+					// KKRTPersistenceUtils.UpdateRTGroundStations();
+				}
 			}
 		}
 
@@ -57,7 +69,11 @@ namespace KerKonRTInterface
 			{}
 			else
 			{
-				PersistenceUtils.saveRTCareerBackup();
+				if (HighLogic.CurrentGame.Mode == Game.Modes.CAREER)
+				{
+					// KKRTPersistenceUtils.UpdateRTGroundStations();
+					// KKRTPersistenceUtils.saveRTCareerBackup();
+				}
 			}
 		}
 
