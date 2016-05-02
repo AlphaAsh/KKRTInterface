@@ -30,7 +30,7 @@ namespace KerKonRTInterface.Utilities
 			}
 		}
 
-		public static void OpenRTGroundStation()
+		/* public static void OpenRTGroundStation()
 		{
 			bool bRTLoaded = AssemblyLoader.loadedAssemblies.Any(a => a.name == "RemoteTech");
 			if (!bRTLoaded) return;
@@ -89,7 +89,7 @@ namespace KerKonRTInterface.Utilities
 					Debug.Log("KK: The station just opened already had a guid???");
 				}
 			}
-		}
+		} */
 
 		public static string ConstructGuidString(StaticObject obj)
 		{
