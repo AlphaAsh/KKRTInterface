@@ -47,9 +47,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\Steam\SteamApps\common\Kerbal Space Program\KSP_Data\Managed\KSPUtil.dll</HintPath>
     </Reference>
-    <Reference Include="RemoteTech, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\Steam\SteamApps\common\Kerbal Space Program\GameData\RemoteTech\Plugins\RemoteTech.dll</HintPath>
+    <Reference Include="RemoteTech">
+      <HintPath>D:\Steam\SteamApps\common\Kerbal Space Program\GameData\RemoteTech\RemoteTech.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

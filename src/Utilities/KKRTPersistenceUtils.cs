@@ -159,6 +159,7 @@ namespace KerKonRTInterface.Utilities
 
 				Debug.Log("KK: Added RT GroundStation " + sGuid);
 				KerbalKonstructs.Utilities.PersistenceUtils.saveStaticPersistence(obj);
+				RemoteTech.API.API.ReloadRTSettingsNow();
 				Debug.Log("KK: Saved station object");
 			}
 		}
@@ -184,6 +185,7 @@ namespace KerKonRTInterface.Utilities
 						Debug.Log("KK: Failed to remove RT GroundStation " + sGuid);
 
 					KerbalKonstructs.Utilities.PersistenceUtils.saveStaticPersistence(obj);
+					RemoteTech.API.API.ReloadRTSettingsNow();
 					Debug.Log("KK: Saved station object");
 				}
 				else
