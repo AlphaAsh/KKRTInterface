@@ -1,3 +1,3 @@
 # KKRTInterface
-Interface assembly between Kerbal Konstructs and RemoteTech
+Interface assembly between Kerbal Konstructs and RemoteTechReTooled
 WIP
