@@ -24,7 +24,6 @@ E:\Kerbal-KonstructsDEV\KerKonRTInterface\KKRTInterface\src\bin\Debug\KerKonRTIn
 E:\Kerbal-KonstructsDEV\KerKonRTInterface\KKRTInterface\src\bin\Debug\KerKonRTInterface.pdb
 E:\Kerbal-KonstructsDEV\KerKonRTInterface\KKRTInterface\src\bin\Debug\Assembly-CSharp-firstpass.dll
 E:\Kerbal-KonstructsDEV\KerKonRTInterface\KKRTInterface\src\bin\Debug\Assembly-CSharp.dll
-E:\Kerbal-KonstructsDEV\KerKonRTInterface\KKRTInterface\src\bin\Debug\ContractConfigurator.dll
 E:\Kerbal-KonstructsDEV\KerKonRTInterface\KKRTInterface\src\bin\Debug\KerbalKonstructs.dll
 E:\Kerbal-KonstructsDEV\KerKonRTInterface\KKRTInterface\src\bin\Debug\KSPUtil.dll
 E:\Kerbal-KonstructsDEV\KerKonRTInterface\KKRTInterface\src\bin\Debug\UnityEngine.dll
@@ -40,3 +39,5 @@ E:\Kerbal-KonstructsDEV\KerKonRTInterface\KKRTInterface\src\bin\Debug\Assembly-C
 E:\Kerbal-KonstructsDEV\KerKonRTInterface\KKRTInterface\src\bin\Debug\UnityEngine.xml
 E:\Kerbal-KonstructsDEV\KerKonRTInterface\KKRTInterface\src\obj\Debug\KerKonRTInterface.dll
 E:\Kerbal-KonstructsDEV\KerKonRTInterface\KKRTInterface\src\obj\Debug\KerKonRTInterface.pdb
+E:\Kerbal-KonstructsDEV\KerKonRTInterface\KKRTInterface\src\obj\Debug\KerKonRTInterface.csprojResolveAssemblyReference.cache
+E:\Kerbal-KonstructsDEV\KerKonRTInterface\KKRTInterface\src\bin\Debug\RemoteTech.dll
