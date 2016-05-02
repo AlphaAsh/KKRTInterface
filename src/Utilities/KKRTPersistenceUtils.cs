@@ -100,7 +100,25 @@ namespace KerKonRTInterface.Utilities
 
 			string sHeight = obj.getSetting("RadiusOffset").ToString();
 
-			sGuid = sHeight.Replace(".", "") + sPos.Replace("@", "").Replace(",", "").Replace(".", "").Replace(";", "").Replace("'", "").Replace(" ", "");
+			sGuid = sHeight.Replace(".", "") + sPos.Replace("@", "").Replace(",", "").Replace(".", "").Replace(";", "").Replace("'", "").Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "");
+
+			int iLength = sGuid.Length;
+			int iNeeded = 32 - iLength;
+
+			if (iLength > 32)
+			{
+				sGuid = sGuid.Substring(0, 32);
+			}
+
+			if (iNeeded > 0)
+			{
+				while (iNeeded > 0)
+				{
+					sGuid = sGuid + "0";
+					iNeeded = iNeeded - 1;
+				}
+			}
+
 			return sGuid;
 		}
 
@@ -136,6 +154,7 @@ namespace KerKonRTInterface.Utilities
 
 				string sGuid = ConstructGuidString(obj);
 
+				Debug.Log("KK: Attempting adding RT GroundStation " + sGuid);
 				RemoteTech.API.API.AddGroundStation(sGuid, sTSName, disObjectLat, disObjectLon, dHeight, iBody);
 
 				Debug.Log("KK: Added RT GroundStation " + sGuid);
